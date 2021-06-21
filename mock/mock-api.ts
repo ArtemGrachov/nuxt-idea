@@ -76,7 +76,7 @@ const NOTES: IArticle[] = [
 
 export const MOCK_ARTICLE_API = {
     async getArticles(page: number, limitPerPage: number): Promise<IRequestGetArticlesResponse> {
-        return {
+        return JSON.parse(JSON.stringify({
             articles: ARTICLES.slice((page - 1) * limitPerPage, limitPerPage),
             pagination: {
                 pages: Math.ceil(ARTICLES.length / limitPerPage),
@@ -84,7 +84,7 @@ export const MOCK_ARTICLE_API = {
                 page,
                 limitPerPage
             }
-        }
+        }));
     },
     async getArticle(id: number): Promise<IArticle> {
         const index: number = ARTICLES.findIndex(item => item.id === id);
@@ -100,7 +100,7 @@ export const MOCK_ARTICLE_API = {
             };
         }
 
-        return ARTICLES[index];
+        return JSON.parse(JSON.stringify(ARTICLES[index]));
     },
     async createArticle(formValue: IFormArticleValue): Promise<IArticle> {
         const newItem: IArticle = {
@@ -110,7 +110,7 @@ export const MOCK_ARTICLE_API = {
 
         ARTICLES.push(newItem);
 
-        return newItem;
+        return JSON.parse(JSON.stringify(newItem));
     },
     async updateArticle(id: number, formValue: IFormArticleValue): Promise<IArticle> {
         const index: number = ARTICLES.findIndex(item => item.id === id);
@@ -131,7 +131,7 @@ export const MOCK_ARTICLE_API = {
 
         ARTICLES.splice(index, 1, newItem);
 
-        return newItem;
+        return JSON.parse(JSON.stringify(newItem));
     },
     async deleteArticle(id: number): Promise<void> {
         const index: number = ARTICLES.findIndex(item => item.id === id);
@@ -153,7 +153,7 @@ export const MOCK_ARTICLE_API = {
 
 export const MOCK_NOTES_API = {
     async getNotes(page: number, limitPerPage: number): Promise<IRequestGetNotesResponse> {
-        return {
+        return JSON.parse(JSON.stringify({
             notes: NOTES.slice((page - 1) * limitPerPage, limitPerPage),
             pagination: {
                 pages: Math.ceil(NOTES.length / limitPerPage),
@@ -161,7 +161,7 @@ export const MOCK_NOTES_API = {
                 page,
                 limitPerPage
             }
-        }
+        }))
     },
     async getNote(id: number): Promise<IArticle> {
         const index: number = NOTES.findIndex(item => item.id === id);
@@ -177,7 +177,7 @@ export const MOCK_NOTES_API = {
             };
         }
 
-        return NOTES[index];
+        return JSON.parse(JSON.stringify(NOTES[index]));
     },
     async createNote(formValue: IFormArticleValue): Promise<IArticle> {
         const newItem: IArticle = {
@@ -187,7 +187,7 @@ export const MOCK_NOTES_API = {
 
         NOTES.push(newItem);
 
-        return newItem;
+        return JSON.parse(JSON.stringify(newItem));
     },
     async updateNote(id: number, formValue: IFormArticleValue): Promise<IArticle> {
         const index: number = NOTES.findIndex(item => item.id === id);
@@ -208,7 +208,7 @@ export const MOCK_NOTES_API = {
 
         NOTES.splice(index, 1, newItem);
 
-        return newItem;
+        return JSON.parse(JSON.stringify(newItem));
     },
     async deleteNote(id: number): Promise<void> {
         const index: number = NOTES.findIndex(item => item.id === id);

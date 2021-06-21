@@ -20,7 +20,7 @@ export default {
 
             commit(ECommonMutations.GET);
 
-            const result: IRequestGetNotesResponse = await $api.notes.getNotes(payload, 2);
+            const result: IRequestGetNotesResponse = await $api.notes.getNotes(payload, 10);
 
             commit(
                 `${STORE_TOKENS.DATA_NOTES}/${EEntitiesMutations.UPSERT_ENTITIES}`,

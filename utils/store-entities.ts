@@ -39,8 +39,6 @@ export function mutationUpsertEntitiesFactory<T>(primaryKey: string) {
 
 export function mutationUpsertEntityFactory<T>(primaryKey: string) {
     return function (state: IEntitiesState<T>, payload: T | Partial<T>): void {
-        console.log(42, state, payload);
-
         upsertEntity(state, payload, primaryKey);
     }
 }
