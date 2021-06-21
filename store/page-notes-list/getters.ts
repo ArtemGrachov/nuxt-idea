@@ -27,7 +27,7 @@ export default {
                 return null;
             }
 
-            const data: IArticle = rootGetters[`${STORE_TOKENS.DATA_ARTICLES}/${EEntitiesGetters.ENTITIES}`][scopedArticle.id];
+            const data: IArticle = rootGetters[`${STORE_TOKENS.DATA_NOTES}/${EEntitiesGetters.ENTITIES}`][scopedArticle.id];
             scopedArticle.data = data;
 
             return scopedArticle;

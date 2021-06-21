@@ -1,11 +1,13 @@
 import { ActionTree } from 'vuex';
-import { ECommonActions } from '~/store-utils/common/actions';
-import { ECommonMutations } from '~/store-utils/common/mutations';
 
 import { IRootState } from '~/store-utils/state.interface';
 import { STORE_TOKENS } from '~/store-utils/tokens';
+import { ECommonActions } from '~/store-utils/common/actions';
+import { ECommonMutations } from '~/store-utils/common/mutations';
+
 import { IApi } from '~/types/api.interface';
 import { IRequestGetArticlesResponse } from '~/types/request-get-articles-response.interface';
+
 import scopedArticleFactory from '~/utils/scoped-article-factory';
 import { EEntitiesMutations } from '~/utils/store-entities';
 

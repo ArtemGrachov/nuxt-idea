@@ -4,7 +4,9 @@ import { ECommonMutations } from '~/store-utils/common/mutations';
 import { IState } from './state';
 import EStatus from '~/types/status.enum';
 import { IRequestGetNotesResponse } from '~/types/request-get-notes-response.interface';
-import { EEntitiesMutations, mutationUpsertEntitiesFactory } from '~/utils/store-entities';
+
+import { EEntitiesMutations, mutationUpsertEntitiesFactory, mutationUpsertEntityFactory } from '~/utils/store-entities';
+import { EListMutations, mutationsPushItem } from '~/utils/store-list';
 
 export default {
     [ECommonMutations.GET]: (state: IState): void => {
@@ -20,5 +22,7 @@ export default {
         state.entity = payload.pagination;
         state.items = payload.notes.map(n => n.id);
     },
-    [EEntitiesMutations.UPSERT_ENTITIES]: mutationUpsertEntitiesFactory('id')
+    [EEntitiesMutations.UPSERT_ENTITIES]: mutationUpsertEntitiesFactory('id'),
+    [EEntitiesMutations.UPSERT_ENTITY]: mutationUpsertEntityFactory('id'),
+    [EListMutations.PUSH_ITEM]: mutationsPushItem
 } as MutationTree<IState>;

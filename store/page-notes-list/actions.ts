@@ -23,7 +23,7 @@ export default {
             const result: IRequestGetNotesResponse = await $api.notes.getNotes(payload, 2);
 
             commit(
-                `${STORE_TOKENS.DATA_ARTICLES}/${EEntitiesMutations.UPSERT_ENTITIES}`,
+                `${STORE_TOKENS.DATA_NOTES}/${EEntitiesMutations.UPSERT_ENTITIES}`,
                 result.notes,
                 { root: true }
             );

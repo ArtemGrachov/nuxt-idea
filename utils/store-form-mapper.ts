@@ -7,7 +7,7 @@ export interface IStoreFormMapperOptions {
     fields: string[];
 }
 
-export default function({ store, getter, mutation, fields }: IStoreFormMapperOptions): {} {
+export default function({ store, getter, mutation, fields }: IStoreFormMapperOptions): any {
     const obj = {};
 
     fields.forEach((field: string) => {
@@ -35,5 +35,5 @@ export default function({ store, getter, mutation, fields }: IStoreFormMapperOpt
         );
     });
 
-    return obj;
+    return obj as any;
 }

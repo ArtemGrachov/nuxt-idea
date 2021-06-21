@@ -5,4 +5,5 @@ export enum ECommonMutations {
     SUBMIT = 'SUBMIT',
     SUBMIT_SUCCESS = 'SUBMIT_SUCCESS',
     SUBMIT_ERROR = 'SUBMIT_ERROR',
+    CLEAR = 'CLEAR'
 };

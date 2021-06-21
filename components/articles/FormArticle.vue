@@ -1,13 +1,13 @@
 <template>
   <form @submit.prevent="submitHandler">
     <div>
-      <textarea
-        name="content"
-        id="content"
-        cols="30"
-        rows="10"
-        v-model="form.content"
-      ></textarea>
+        <textarea
+            name="content"
+            id="content"
+            cols="30"
+            rows="10"
+            v-model="form.content"
+        ></textarea>
     </div>
     <p>
         Submit status: {{ submitStatus || null }}
@@ -21,6 +21,7 @@
 
 <script lang="ts">
 import Vue from "vue";
+import Component from 'vue-class-component';
 import { Inject } from "nuxt-property-decorator";
 
 import AbstractFormService from "~/services/abstract-form.service";
@@ -29,6 +30,7 @@ import EStatus from "~/types/status.enum";
 
 export const TOKEN_FORM_ARTICLE_SERVICE: string = "TOKEN_FORM_ARTICLE_SERVICE";
 
+@Component({})
 export default class ComponentFormArticle extends Vue {
     @Inject(TOKEN_FORM_ARTICLE_SERVICE)
     private formService!: AbstractFormService<IFormArticleValue>;

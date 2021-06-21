@@ -1,4 +1,5 @@
 export enum ECommonActions {
     GET = 'GET',
-    SUBMIT = 'SUBMIT'
+    SUBMIT = 'SUBMIT',
+    DELETE = 'DELETE'
 };

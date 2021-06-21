@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import EStatus from '~/types/status.enum';
 
 export enum EFormMutations {
     SET_FORM_FIELD = 'setFormField'
@@ -10,6 +11,8 @@ export enum EFormGetters {
 
 export interface IFormState<T> {
     form: T;
+    submitStatus: EStatus;
+    submitError: any;
 }
 
 export interface IMutationSetFormValuePayload {
