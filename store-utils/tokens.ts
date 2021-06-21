@@ -5,5 +5,6 @@ export const STORE_TOKENS = {
     PAGE_ARTICLES_FORM: 'page-articles-form',
     PAGE_ARTICLES_LIST: 'page-articles-list',
     PAGE_NOTES_FORM: 'page-notes-form',
-    PAGE_NOTES_LIST: 'page-notes-list'
+    PAGE_NOTES_LIST: 'page-notes-list',
+    PAGE_ARTICLE_EDIT_FORM: 'page-article-edit-form'
 }

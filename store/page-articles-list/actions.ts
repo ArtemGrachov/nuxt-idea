@@ -21,7 +21,7 @@ export default {
 
             commit(ECommonMutations.GET);
 
-            const result: IRequestGetArticlesResponse = await $api.articles.getArticles(payload, 10);
+            const result: IRequestGetArticlesResponse = await $api.articles.getArticles(payload, 3);
 
             commit(
                 `${STORE_TOKENS.DATA_ARTICLES}/${EEntitiesMutations.UPSERT_ENTITIES}`,

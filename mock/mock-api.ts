@@ -77,7 +77,7 @@ const NOTES: IArticle[] = [
 export const MOCK_ARTICLE_API = {
     async getArticles(page: number, limitPerPage: number): Promise<IRequestGetArticlesResponse> {
         return JSON.parse(JSON.stringify({
-            articles: ARTICLES.slice((page - 1) * limitPerPage, limitPerPage),
+            articles: ARTICLES.slice((page - 1) * limitPerPage, page * limitPerPage),
             pagination: {
                 pages: Math.ceil(ARTICLES.length / limitPerPage),
                 totalItems: ARTICLES.length,
@@ -154,7 +154,7 @@ export const MOCK_ARTICLE_API = {
 export const MOCK_NOTES_API = {
     async getNotes(page: number, limitPerPage: number): Promise<IRequestGetNotesResponse> {
         return JSON.parse(JSON.stringify({
-            notes: NOTES.slice((page - 1) * limitPerPage, limitPerPage),
+            notes: NOTES.slice((page - 1) * limitPerPage, page * limitPerPage),
             pagination: {
                 pages: Math.ceil(NOTES.length / limitPerPage),
                 totalItems: NOTES.length,

@@ -12,8 +12,13 @@ import { IArticle } from '~/types/article.interface';
 import { EEntitiesMutations } from '~/utils/store-entities';
 import { IFormState } from '~/utils/store-form';
 
+export interface IArticleEditSubmitPayload {
+    id: number;
+    formValue: IFormArticleValue;
+}
+
 export default {
-    async [ECommonActions.SUBMIT]({ commit }, payload: IFormArticleValue): Promise<void> {
+    async [ECommonActions.SUBMIT]({ commit }, payload: IArticleEditSubmitPayload): Promise<void> {
         try {
             // @ts-ignore
             const $api: IApi = this.$api;
@@ -22,9 +27,7 @@ export default {
 
             const result: IArticle = await $api
                 .articles
-                .createArticle({
-                    content: payload.content
-                });
+                .updateArticle(payload.id, { content: payload.formValue.content });
 
             commit(
                 `${STORE_TOKENS.DATA_ARTICLES}/${EEntitiesMutations.UPSERT_ENTITY}`,

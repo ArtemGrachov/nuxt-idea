@@ -5,12 +5,27 @@
     <table>
         <tbody>
             <tr v-for="article in articles" :key="article.id">
-                <td>{{ article.id }}</td>
+                <td>
+                    <NuxtLink :to="`/articles/${article.id}`">
+                        {{ article.id }}
+                    </NuxtLink>
+                </td>
                 <td>{{ article }}</td>
+                <td>
+                    <NuxtLink :to="`/articles/${article.id}/edit`">
+                        Edit
+                    </NuxtLink>
+                </td>
             </tr>
         </tbody>
     </table>
-    <p>Pase state:</p>
+    <p>
+        Pagination: {{ pagination }}
+    </p>
+    <button type="button" @click="previousPage">Previous page</button>
+    <button type="button" @click="nextPage">Next page</button>
+    <hr>
+    <p>Page state:</p>
     <table>
         <tbody>
             <tr>
@@ -28,47 +43,99 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { Component } from 'nuxt-property-decorator';
+import { Component, Watch } from 'nuxt-property-decorator';
+
 import { STORE_TOKENS } from '~/store-utils/tokens';
 import { ECommonActions } from '~/store-utils/common/actions';
-import { IArticle } from '~/types/article.interface';
-import EStatus from '~/types/status.enum';
 import { ECommonGetters } from '~/store-utils/common/getters';
+
+import EStatus from '~/types/status.enum';
+import { IArticle } from '~/types/article.interface';
+import { IPagination } from '~/types/pagination.interface';
+
 import { EGetters as EPageArticlesGetters } from '~/store/page-articles-list/getters';
 
 @Component({})
 export default class PageArticlesIndex extends Vue {
-  public get articles(): IArticle | null {
-    return this
-        .$store
-        .getters
-        [`${STORE_TOKENS.PAGE_ARTICLES_LIST}/${EPageArticlesGetters.ARTICLES}`];
-  }
+    public get articles(): IArticle | null {
+        return this
+            .$store
+            .getters
+            [`${STORE_TOKENS.PAGE_ARTICLES_LIST}/${EPageArticlesGetters.ARTICLES}`];
+    }
 
-  public get getStatus(): EStatus {
-    return this.$store.getters[
-      `${STORE_TOKENS.PAGE_ARTICLES_LIST}/${ECommonGetters.GET_STATUS}`
-    ];
-  }
+    public get getStatus(): EStatus {
+        return this.$store.getters[
+            `${STORE_TOKENS.PAGE_ARTICLES_LIST}/${ECommonGetters.GET_STATUS}`
+        ];
+    }
 
-  public get getError(): any {
-    return this.$store.getters[
-      `${STORE_TOKENS.PAGE_ARTICLES_LIST}/${ECommonGetters.GET_ERROR}`
-    ];
-  }
+    public get getError(): any {
+        return this.$store.getters[
+            `${STORE_TOKENS.PAGE_ARTICLES_LIST}/${ECommonGetters.GET_ERROR}`
+        ];
+    }
 
-  public async asyncData({ query, store, error }: any): Promise<void> {
-    try {
-        const rawPage: string = query.page;
-        const page: number = isNaN(+rawPage) ? 1 : +rawPage;
+    public get pagination(): IPagination | null {
+        return this.$store.getters[
+            `${STORE_TOKENS.PAGE_ARTICLES_LIST}/${ECommonGetters.PAGINATION}`
+        ]
+    }
 
-        store.dispatch(
+    public async asyncData({ query, store, error }: any): Promise<void> {
+        try {
+            const rawPage: string = query.page;
+            const page: number = isNaN(+rawPage) ? 1 : +rawPage;
+
+            store.dispatch(
+                `${STORE_TOKENS.PAGE_ARTICLES_LIST}/${ECommonActions.GET}`,
+                page
+            );
+        } catch (err) {
+            error(err);
+        }
+    }
+
+    private getPage(page: number): void {
+        this.$store.dispatch(
             `${STORE_TOKENS.PAGE_ARTICLES_LIST}/${ECommonActions.GET}`,
             page
         );
-    } catch (err) {
-      error(err);
     }
-  }
+
+    public previousPage(): void {
+        if (!this.pagination) {
+            return;
+        }
+
+        this.$router.push({
+            query: {
+                ...this.$route.query,
+                page: (this.pagination.page - 1).toString()
+            }
+        });
+    }
+
+    public nextPage(): void {
+        if (!this.pagination) {
+            return;
+        }
+
+        this.$router.push({
+            query: {
+                ...this.$route.query,
+                page: (this.pagination.page + 1).toString()
+            }
+        });
+    }
+
+    @Watch('$route.query.page')
+    public onRoutePageChanged(newValue?: string): void {
+        if (newValue == null) {
+            return;
+        }
+
+        this.getPage(+newValue);
+    }
 }
 </script>

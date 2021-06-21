@@ -18,6 +18,7 @@ export enum EGetters {
 export default {
     [ECommonGetters.GET_STATUS]: state => state.getStatus,
     [ECommonGetters.GET_ERROR]: state => state.getError,
+    [ECommonGetters.PAGINATION]: state => state.entity,
     [EListGetters.LIST]: getterList,
     [EGetters.NOTES]: (state, getters, rootState, rootGetters) => {
         return getters[EListGetters.LIST].map((articleId: number) => {
@@ -28,9 +29,11 @@ export default {
             }
 
             const data: IArticle = rootGetters[`${STORE_TOKENS.DATA_NOTES}/${EEntitiesGetters.ENTITIES}`][scopedArticle.id];
-            scopedArticle.data = data;
 
-            return scopedArticle;
+            return {
+                ...scopedArticle,
+                data
+            };
         });
     }
 } as GetterTree<IState, IRootState>;
