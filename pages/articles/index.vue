@@ -4,19 +4,11 @@
     <p>Articles data:</p>
     <table>
         <tbody>
-            <tr v-for="article in articles" :key="article.id">
-                <td>
-                    <NuxtLink :to="`/articles/${article.id}`">
-                        {{ article.id }}
-                    </NuxtLink>
-                </td>
-                <td>{{ article }}</td>
-                <td>
-                    <NuxtLink :to="`/articles/${article.id}/edit`">
-                        Edit
-                    </NuxtLink>
-                </td>
-            </tr>
+            <ArticleItem
+                v-for="article in articles"
+                :key="article.id"
+                :article="article"
+            />
         </tbody>
     </table>
     <p>
@@ -45,6 +37,8 @@
 import Vue from 'vue';
 import { Component, Watch } from 'nuxt-property-decorator';
 
+import ComponentArticleItem from '~/components/articles/ArticleItem.vue';
+
 import { STORE_TOKENS } from '~/store-utils/tokens';
 import { ECommonActions } from '~/store-utils/common/actions';
 import { ECommonGetters } from '~/store-utils/common/getters';
@@ -55,7 +49,9 @@ import { IPagination } from '~/types/pagination.interface';
 
 import { EGetters as EPageArticlesGetters } from '~/store/page-articles-list/getters';
 
-@Component({})
+@Component({
+    components: { ArticleItem: ComponentArticleItem }
+})
 export default class PageArticlesIndex extends Vue {
     public get articles(): IArticle | null {
         return this

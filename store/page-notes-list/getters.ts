@@ -19,6 +19,7 @@ export default {
     [ECommonGetters.GET_STATUS]: state => state.getStatus,
     [ECommonGetters.GET_ERROR]: state => state.getError,
     [ECommonGetters.PAGINATION]: state => state.entity,
+    [EEntitiesGetters.ENTITIES]: state => state.entities,
     [EListGetters.LIST]: getterList,
     [EGetters.NOTES]: (state, getters, rootState, rootGetters) => {
         return getters[EListGetters.LIST].map((articleId: number) => {

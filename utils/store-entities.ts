@@ -7,7 +7,7 @@ export enum EEntitiesMutations {
 }
 
 export enum EEntitiesGetters {
-    ENTITIES = 'entity'
+    ENTITIES = 'entities'
 }
 
 export interface IEntitiesState<T> {

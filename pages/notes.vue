@@ -5,10 +5,11 @@
     <p>Notes data:</p>
     <table>
         <tbody>
-            <tr v-for="note in notes" :key="note.id">
-                <td>{{ note.id }}</td>
-                <td>{{ note }}</td>
-            </tr>
+            <NotesItem
+                v-for="note in notes"
+                :key="note.id"
+                :note="note"
+            />
         </tbody>
     </table>
     <p>
@@ -40,7 +41,10 @@ import Vue from 'vue';
 import { Component, Provide, Watch } from 'nuxt-property-decorator';
 
 import CreateNoteFormService from '~/services/create-note-form.service';
+import EditNoteContextService from '~/services/edit-note-context.service';
+
 import ComponentFormArticle, { TOKEN_FORM_ARTICLE_SERVICE } from '~/components/articles/FormArticle.vue';
+import ComponentNoteItem, { TOKEN_EDIT_NOTE_CONTEXT } from '~/components/notes/NotesItem.vue';
 
 import { EGetters as EPageNotesGetters } from '~/store/page-notes-list/getters';
 import { STORE_TOKENS } from '~/store-utils/tokens';
@@ -53,13 +57,19 @@ import { IPagination } from '~/types/pagination.interface';
 
 @Component({
     components: {
-        FormArticle: ComponentFormArticle
+        FormArticle: ComponentFormArticle,
+        NotesItem: ComponentNoteItem
     }
 })
 export default class PageNotes extends Vue {
     @Provide(TOKEN_FORM_ARTICLE_SERVICE)
     private get createNoteFormService(): CreateNoteFormService {
         return new CreateNoteFormService(this.$store);
+    }
+
+    @Provide(TOKEN_EDIT_NOTE_CONTEXT)
+    private get editNoteContextService(): EditNoteContextService {
+        return new EditNoteContextService(this.$store);
     }
 
     public get notes(): IArticle | null {
