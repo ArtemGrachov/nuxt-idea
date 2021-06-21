@@ -8,6 +8,7 @@
                 v-for="article in articles"
                 :key="article.id"
                 :article="article"
+                @delete="deleteHandler(article.id)"
             />
         </tbody>
     </table>
@@ -123,6 +124,10 @@ export default class PageArticlesIndex extends Vue {
                 page: (this.pagination.page + 1).toString()
             }
         });
+    }
+
+    public deleteHandler(articleId: number): void {
+        this.$store.dispatch(`${STORE_TOKENS.PAGE_ARTICLES_LIST}/${ECommonActions.DELETE}`, articleId);
     }
 
     @Watch('$route.query.page')

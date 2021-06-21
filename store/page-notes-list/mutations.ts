@@ -5,8 +5,8 @@ import { IState } from './state';
 import EStatus from '~/types/status.enum';
 import { IRequestGetNotesResponse } from '~/types/request-get-notes-response.interface';
 
-import { EEntitiesMutations, mutationUpsertEntitiesFactory, mutationUpsertEntityFactory } from '~/utils/store-entities';
-import { EListMutations, mutationsPushItem } from '~/utils/store-list';
+import { EEntitiesMutations, mutationDeleteEntity, mutationUpsertEntitiesFactory, mutationUpsertEntityFactory } from '~/utils/store-entities';
+import { EListMutations, mutationDeleteItem, mutationsPushItem } from '~/utils/store-list';
 
 export default {
     [ECommonMutations.GET]: (state: IState): void => {
@@ -24,5 +24,7 @@ export default {
     },
     [EEntitiesMutations.UPSERT_ENTITIES]: mutationUpsertEntitiesFactory('id'),
     [EEntitiesMutations.UPSERT_ENTITY]: mutationUpsertEntityFactory('id'),
-    [EListMutations.PUSH_ITEM]: mutationsPushItem
+    [EListMutations.PUSH_ITEM]: mutationsPushItem,
+    [EEntitiesMutations.DELETE_ENTITY]: mutationDeleteEntity,
+    [EListMutations.DELETE_ITEM]: mutationDeleteItem
 } as MutationTree<IState>;

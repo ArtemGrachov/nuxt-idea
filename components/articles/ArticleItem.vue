@@ -11,6 +11,9 @@
                 Edit
             </NuxtLink>
         </td>
+        <td>
+            <button type="button" @click="deleteHandler">Delete</button>
+        </td>
     </tr>
 </template>
 
@@ -25,5 +28,9 @@ import { IScopedArticle } from '~/types/scoped-article.interface';
 export default class ComponentArticleItem extends Vue {
     @Prop()
     public readonly article!: IScopedArticle;
+
+    public deleteHandler(): void {
+        this.$emit('delete');
+    }
 }
 </script>

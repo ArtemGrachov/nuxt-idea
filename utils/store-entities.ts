@@ -3,7 +3,8 @@ import IDictionary from '~/types/dictionary.interface';
 
 export enum EEntitiesMutations {
     UPSERT_ENTITIES = 'upsertEntities',
-    UPSERT_ENTITY = 'upsertEntity'
+    UPSERT_ENTITY = 'upsertEntity',
+    DELETE_ENTITY = 'deleteEntity'
 }
 
 export enum EEntitiesGetters {
@@ -41,6 +42,10 @@ export function mutationUpsertEntityFactory<T>(primaryKey: string) {
     return function (state: IEntitiesState<T>, payload: T | Partial<T>): void {
         upsertEntity(state, payload, primaryKey);
     }
+}
+
+export function mutationDeleteEntity<T>(state: IEntitiesState<T>, key: string) {
+    Vue.set(state.entities, key, null);
 }
 
 export function getterEntities<T>(state: IEntitiesState<T>): IDictionary<T> | null {

@@ -115,7 +115,7 @@ export const MOCK_ARTICLE_API = {
     async updateArticle(id: number, formValue: IFormArticleValue): Promise<IArticle> {
         const index: number = ARTICLES.findIndex(item => item.id === id);
 
-        if (index === 1) {
+        if (index === -1) {
             throw {
                 response: {
                     statusCode: 404,
@@ -136,7 +136,7 @@ export const MOCK_ARTICLE_API = {
     async deleteArticle(id: number): Promise<void> {
         const index: number = ARTICLES.findIndex(item => item.id === id);
 
-        if (index === 1) {
+        if (index === -1) {
             throw {
                 response: {
                     statusCode: 404,
@@ -166,7 +166,7 @@ export const MOCK_NOTES_API = {
     async getNote(id: number): Promise<IArticle> {
         const index: number = NOTES.findIndex(item => item.id === id);
 
-        if (index === 1) {
+        if (index === -1) {
             throw {
                 response: {
                     statusCode: 404,
@@ -192,7 +192,7 @@ export const MOCK_NOTES_API = {
     async updateNote(id: number, formValue: IFormArticleValue): Promise<IArticle> {
         const index: number = NOTES.findIndex(item => item.id === id);
 
-        if (index === 1) {
+        if (index === -1) {
             throw {
                 response: {
                     statusCode: 404,
@@ -213,7 +213,7 @@ export const MOCK_NOTES_API = {
     async deleteNote(id: number): Promise<void> {
         const index: number = NOTES.findIndex(item => item.id === id);
 
-        if (index === 1) {
+        if (index === -1) {
             throw {
                 response: {
                     statusCode: 404,

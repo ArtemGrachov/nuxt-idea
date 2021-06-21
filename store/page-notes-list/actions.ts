@@ -15,6 +15,7 @@ import scopedNoteFactory from '~/utils/scoped-note-factory';
 import { EEntitiesMutations } from '~/utils/store-entities';
 
 import { IState } from './state';
+import { EListMutations } from '~/utils/store-list';
 
 export interface INoteEditSubmitPayload {
     id: number;
@@ -74,6 +75,40 @@ export default {
             commit(
                 EEntitiesMutations.UPSERT_ENTITY,
                 { id: payload.id, editStatus: EStatus.ERROR, editError: err }
+            );
+        }
+    },
+    async [ECommonActions.DELETE]({ commit }, payload: number): Promise<void> {
+        try {
+            // @ts-ignore
+            const $api: IApi = this.$api;
+
+            commit(
+                EEntitiesMutations.UPSERT_ENTITY,
+                { id: payload, deleteStatus: EStatus.PROCESSING, editError: null }
+            );
+
+            await $api.notes.deleteNote(payload);
+
+            commit(
+                EListMutations.DELETE_ITEM,
+                payload
+            );
+            commit(
+                EEntitiesMutations.DELETE_ENTITY,
+                payload
+            );
+            commit(
+                `${STORE_TOKENS.DATA_NOTES}/${EEntitiesMutations.DELETE_ENTITY}`,
+                payload,
+                { root: true }
+            );
+        } catch (err) {
+            console.log(err);
+
+            commit(
+                EEntitiesMutations.UPSERT_ENTITY,
+                { id: payload, deleteStatus: EStatus.ERROR, editError: err }
             );
         }
     }

@@ -5,6 +5,7 @@ export enum EListMutations {
   PUSH_ITEM = 'pushItem',
   UNSHIFT_ITEM = 'unshiftItem',
   CLEAR_LIST = 'clearList',
+  DELETE_ITEM = 'deleteItem'
 }
 
 export enum EListGetters {
@@ -30,6 +31,10 @@ export function mutationsUnshiftItem<T>(state: IListState<T>, payload: T): void 
 export function mutationsClearList<T>(state: IListState<T>, payload: T): void {
   Vue.set(state, 'items', []);
 }
+
+export function mutationDeleteItem<T>(state: IListState<T>, payload: T): void {
+    Vue.set(state, 'items', state.items.filter(i => i !== payload));
+  }
 
 export function getterList<T>(state: IListState<T>): Array<T> {
   return state.items;

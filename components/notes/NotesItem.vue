@@ -5,6 +5,9 @@
         <td>
             <FormArticle />
         </td>
+        <td>
+            <button type="button" @click="deleteHandler">Delete</button>
+        </td>
     </tr>
 </template>
 
@@ -38,5 +41,9 @@ export default class ComponentNoteItem extends Vue {
 
     @Prop()
     public readonly note!: IScopedNote;
+
+    public deleteHandler(): void {
+        this.$emit('delete');
+    }
 }
 </script>

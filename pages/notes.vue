@@ -9,6 +9,7 @@
                 v-for="note in notes"
                 :key="note.id"
                 :note="note"
+                @delete="deleteHandler(note.id)"
             />
         </tbody>
     </table>
@@ -142,6 +143,10 @@ export default class PageNotes extends Vue {
                 page: (this.pagination.page + 1).toString()
             }
         });
+    }
+
+    public deleteHandler(articleId: number): void {
+        this.$store.dispatch(`${STORE_TOKENS.PAGE_NOTES_LIST}/${ECommonActions.DELETE}`, articleId);
     }
 
     @Watch('$route.query.page')
